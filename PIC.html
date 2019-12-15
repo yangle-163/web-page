@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<title></title>
+<head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    ul,li{
+        list-style: none
+    }
+    #Bbox{
+        width:1400px;
+        height:490px;
+        position:absolute;
+        top:50px;
+        left:250px;
+        border:1px solid black;
+    }
+    #peak{
+        width:1400px;
+        height:25px;
+        background: lightgray;
+    }
+    #Sbox1{
+        height:25px;
+        width:230px;
+        float:left;
+    }
+    #Sbox2{
+        height:25px;
+        width:1000px;
+        position:absolute;
+        left:230px;
+        overflow: hidden;
+    }
+    #outside{
+        height:25px;
+        width:500px;
+        position:absolute;
+        left:1150px;
+    }
+    #word{
+        text-align:right;
+        color:red;
+        padding-top:2px;
+        overflow: hidden;
+    }
+    #Sbox3{
+        height:25px;
+        width:170px;
+        float:left; 
+        position:absolute;
+        left:1230px;        
+    }
+    #img{
+        position:relative; 
+        margin:5px 200px;
+    }
+    #box{
+        width:1200px;
+        height:335px;
+        border:1px solid #ccc;
+        margin:50px auto;
+        position:relative;
+        overflow: hidden;
+    }
+    .slider{
+        width:8400px;
+        position:absolute;
+        left:-1200px;
+    }
+    .slide{
+        width:1200px;
+        overflow: hidden;
+        float:left;
+    }
+    span{
+        display:block;
+        width:30px;
+        height:50px;
+        text-align:center;
+        cursor:pointer;
+        color:white;
+        top:175px;
+        line-height:50px;
+        background: red;
+        font-size: 30px;
+        position:absolute;
+        opacity:0;
+    }
+    #left{
+        position: :absolute;
+        left:100px;
+        top:140px;
+    }
+    #right{
+        position:absolute;
+        right:100px;
+        top:140px;
+    }
+    .nav{
+        position:absolute;
+        left:500px;
+        bottom:20px;
+    }
+    .nav>li{
+        float:left;
+        background: #ccc;
+        cursor: pointer;
+        margin: 0 10px;
+        border-radius: 50%;
+        text-align: center;
+        width:25px;
+        height:25px;
+        font-size: 18px;
+    }
+    .nav .active{
+        background: red;
+    }
+    .pic{
+        width:1200px;
+        height:335px;
+        }
+</style>
+<script src="C:/Users/hp/Desktop/sucai6-master/js/animate.js"></script>
+</head>
+<body>
+    <div id="Bbox">
+        <div id="peak">
+            <div id="Sbox1"><img src="C:/Users/hp/Desktop/sucai6-master/ima/a15.png" id="img"></div>
+            <div id="Sbox2"><div id="outside"><p id="word">【温馨提示】最近有不少不法分子在网上骗人，请大家注意！！！</p></div></div>
+            <div id="Sbox3">&nbsp;</div>
+        </div>
+
+        <div class="box" id="box">
+            <div class="slider" id="slider">
+                <div class="slide"><img src="C:/Users/hp/Desktop/sucai6-master/ima/b5.png" alt="" class="pic"/></div>
+                <div class="slide"><img src="C:/Users/hp/Desktop/sucai6-master/ima/b1.png" alt="" class="pic"/></div>
+                <div class="slide"><img src="C:/Users/hp/Desktop/sucai6-master/ima/b2.png" alt="" class="pic"/></div>
+                <div class="slide"><img src="C:/Users/hp/Desktop/sucai6-master/ima/b3.png" alt="" class="pic"/></div>
+                <div class="slide"><img src="C:/Users/hp/Desktop/sucai6-master/ima/b4.png" alt="" class="pic"/></div>
+                <div class="slide"><img src="C:/Users/hp/Desktop/sucai6-master/ima/b5.png" alt="" class="pic"/></div>
+                <div class="slide"><img src="C:/Users/hp/Desktop/sucai6-master/ima/b1.png" alt="" class="pic"/></div>
+            </div>
+            <span id="left"> < </span>
+            <span id="right"> > </span>
+            <ul class="nav" id="nav">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var oNavlist = document.getElementById("nav").children;
+    var slider = document.getElementById("slider");
+    var left = document.getElementById("left");
+    var right = document.getElementById("right");
+    var word = document.getElementById("word");
+    var index = 1;
+    var timer;
+    var isMoving = false;
+    var ind = 100;
+
+    function next(){
+        if(isMoving){
+            return;
+        }
+        isMoving = true;
+        index++;
+        navChange();
+        animate(slider,{left:-1200*index},function(){
+            if(index===6){
+                slider.style.left = "-1200px";
+                index = 1;
+            }
+            isMoving = false;
+        });
+    }
+
+    function prev(){
+        if(isMoving){
+            return;
+        }
+        isMoving = true;
+        index--;
+        navChange();
+        animate(slider,{left:-1200*index},function(){
+            if(index===0){
+                slider.style.left = -1200*5 +"px";
+                index=5;
+            }
+            isMoving = false;
+        });
+    }
+    timer = setInterval(next,3000);
+
+    var timer = setInterval(function(){
+        index++;
+        animate(slider,{left:-1200*index},function(){
+            if(index==6){
+                slider.style.left = "-1200px";
+                index = 1;
+            }
+        });
+    },3000);
+    
+    box.onmouseover = function(){
+        animate(left,{opacity:50});
+        animate(right,{opacity:50});
+        clearInterval(timer);
+    }
+    box.onmouseout = function(){
+        animate(left,{opacity:0});
+        animate(right,{opacity:0});
+        timer = setInterval(next,3000);
+    }
+    right.onclick = next;
+    left.onclick = prev;
+
+    for(var i = 0;i < oNavlist.length ; i++){
+        oNavlist[i].idx = i;
+        oNavlist[i].onclick = function(){
+            index = this.idx + 1;
+            navChange();
+            animate(slider,{left:-1200*index})
+        }
+    }
+
+    function navChange(){
+        for(var i = 0;i<oNavlist.length;i++){
+            oNavlist[i].className =  "";
+        }
+        if(index===6){
+            oNavlist[0].className = "active" ;
+        }
+        else if(index===0){
+            oNavlist[4].className = "active" ;
+        }
+        else{
+            oNavlist[index-1].className = "active" ;
+        }
+    }
+
+    setInterval(function(){
+        ind--;
+        if(ind===-60){
+            outside.style.left="1150px";
+            ind=100;
+        }
+        animate(outside,{left:10*ind})
+    },150);
+</script>
+</html>
