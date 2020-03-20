@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>login</title>
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	#box{
+		height:200px;
+		width:700px;
+		position:absolute;
+		left:410px;
+		top:100px;
+		border:2px solid gray;
+	}
+	#overbox{
+		height:40px;
+		width:600px;
+		position:absolute;
+		left:50px;
+		top:20px;
+		border:1px solid gray;
+	}
+	#botbox{
+		height:80px;
+		width:550px;
+		position: absolute;
+		left:75px;
+		top:90px;
+		font-size:18px;
+	}	
+	li{
+		width:20px;
+		height:20px;
+		float:left;
+        background: white;
+        cursor: pointer;
+        list-style: none;
+        margin-top:10px;
+        margin-left:20px;
+	}
+</style>
+</head>
+<body>
+	<fieldset>
+	<div id="box">
+		<div id="overbox">
+			<ul id="skin">
+				<li class="skin-0"></li>
+				<li class="skin-1"></li>
+				<li class="skin-2" ></li>
+				<li class="skin-3"></li>
+				<li class="skin-4"></li>
+				<li class="skin-5"></li>
+			</ul>
+		</div>
+
+		<div id="botbox"> 
+			LocalStorage将数据保存在客户端本地的硬件设备中，即使浏览器被关闭了，该数据仍然存在，下次打开浏览器访问该网页时仍然可以继续使用。
+		</div>
+	</div>
+	</fieldset>
+
+<script>
+	var botbox = document.getElementById("botbox");
+	var colors = ['lightgray','purple','red','lightblue','orange','green'];
+	var lis = document.getElementsByTagName('li');
+	for(var i=0; i<lis.length; i++){
+    	lis[i].style.background = colors[i];
+    	lis[i].index = i;
+    	lis[i].onclick = function(){
+    		botbox.style.background = colors[this.index];
+    		localStorage.setItem('bgc',colors[this.index]);
+    	}
+    	window.onload = function(){
+    		botbox.style.background = localStorage.getItem('bgc');
+    	}
+	}
+</script>
+</body>
+</html>
